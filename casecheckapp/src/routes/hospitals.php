@@ -53,30 +53,33 @@ $app->post('/api/v1/hospital', function (Request $request, Response $response){
 	$city = $request->getParam('city');
 	$state = $request->getParam('state');
 	$address = $request->getParam('address');
+	
+	if(strlen($state)<3){
+		$sql= "INSERT INTO hospitals (name, city, state, address) VALUES
+		(:name, :city, :state, :address)"; 
 
-	$sql= "INSERT INTO hospitals (name, city, state, address) VALUES
-	(:name, :city, :state, :address)"; 
+		try{
+			//Get database Object
+			$db = new db();
+			// Connect
+			$db = $db->connect();
 
-	try{
-		//Get database Object
-		$db = new db();
-		// Connect
-		$db = $db->connect();
+			$stmt = $db->prepare($sql);
 
-		$stmt = $db->prepare($sql);
+			$stmt->bindParam(':name', $name);
+			$stmt->bindParam(':city', $city);
+			$stmt->bindParam(':state', $state);
+			$stmt->bindParam(':address', $address);
 
-		$stmt->bindParam(':name', $name);
-		$stmt->bindParam(':city', $city);
-		$stmt->bindParam(':state', $state);
-		$stmt->bindParam(':address', $address);
+			$stmt->execute();
 
-		$stmt->execute();
+			echo '{"notice": {"text": "Hospital Added"}';
 
-		echo '{"notice": {"text": "Hospital Added"}';
-
-	}catch(PDOException $e){
-		echo '{"error": {"text": '.$e->getMessage().' }';
+		}catch(PDOException $e){
+			echo '{"error": {"text": '.$e->getMessage().' }';
+		}
 	}
+	else {echo '{"notice" : {"text" : "state should be less than 2 characters. Please enter a valid argument}';}
 });
 
 //Update Hospital
@@ -87,33 +90,36 @@ $app->put('/api/v1/hospital/{id}', function (Request $request, Response $respons
 	$state = $request->getParam('state');
 	$address = $request->getParam('address');
 
-	$sql= "UPDATE hospitals SET
-			name = :name,
-			city = :city,
-			state = :state,
-			address = :address
-			WHERE id = $id";
+	if(strlen($state)<3){
+		$sql= "UPDATE hospitals SET
+				name = :name,
+				city = :city,
+				state = :state,
+				address = :address
+				WHERE id = $id";
 
-	try{
-		//Get database Object
-		$db = new db();
-		// Connect
-		$db = $db->connect();
+		try{
+			//Get database Object
+			$db = new db();
+			// Connect
+			$db = $db->connect();
 
-		$stmt = $db->prepare($sql);
+			$stmt = $db->prepare($sql);
 
-		$stmt->execute([
-		":name"=>$name,
-		":city"=>$city,
-		":state"=>$state,
-		":address"=>$address
-		]);
+			$stmt->execute([
+			":name"=>$name,
+			":city"=>$city,
+			":state"=>$state,
+			":address"=>$address
+			]);
 
-		echo '{"notice": {"text": "Hospital Updated"}';
+			echo '{"notice": {"text": "Hospital Updated"}';
 
-	}catch(PDOException $e){
-		echo '{"error": {"text": '.$e->getMessage().' }';
+		}catch(PDOException $e){
+			echo '{"error": {"text": '.$e->getMessage().' }';
+		}
 	}
+	else {echo '{"notice" : {"text" : "state should be less than 2 characters. Please enter a valid argument}';}
 });
 
 //Delete Hospital
