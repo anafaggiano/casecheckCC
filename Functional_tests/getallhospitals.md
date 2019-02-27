@@ -1,4 +1,4 @@
-#How to successfully Get the collection of Hospitals
+# How to successfully Get the collection of Hospitals
 
 Description: A user should be able to get all hospitals from database
 
@@ -15,7 +15,7 @@ Click the "Send" button
 
 Expected Result: All hospitals data contained in the MySQL database should be displayed in JSON format
 
-##How to successfully Get the collection of Hospitals and filter result by city
+# How to successfully Get the collection of Hospitals and filter result by city
 
 Description: A user should be able to get all hospitals filtered by city from database
 
