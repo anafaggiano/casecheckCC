@@ -40,3 +40,9 @@ Please make sure you also download the phpunit.xml file in your htdocs/casecheck
 
 ### Run tests
 Run '''phpunit''' from a command line in xampp/htdocs/casecheckapp folder.
+
+## Discussion
+
+## Unit testing
+
+The unit testing provided is not exhaustive and would need additional testing, as the assertion of IDs for example.
