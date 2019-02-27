@@ -1,4 +1,4 @@
-#How to successfully delete a Single Hospital from the datastore
+# How to successfully delete a Single Hospital from the datastore
 
 Description: A user should be able to delete a single hospital from the datastore
 
