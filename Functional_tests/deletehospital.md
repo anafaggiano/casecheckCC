@@ -13,5 +13,6 @@ Enter "http://localhost/casecheckapp/public/index.php/api/v1/hospital/ID" in the
 Select "DELETE" for the Method field 
 Click the "Send" button
 
+
 Expected Result: The hospital with the matching ID should be deleted from the datastore
 
