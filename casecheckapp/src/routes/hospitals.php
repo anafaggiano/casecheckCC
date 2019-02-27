@@ -47,6 +47,29 @@ $app->get('/api/v1/hospital/{id}', function (Request $request, Response $respons
 
 });
 
+//Get Hospitals by city
+$app->get('/api/v1/hospitals/{city}', function (Request $request, Response $response){
+	$city = $request->getAttribute('city');
+
+	$sql= "SELECT * FROM hospitals WHERE city = $city";
+	
+	try{
+		//Get database Object
+		$db = new db();
+		// Connect
+		$db = $db->connect();
+
+		$stmt  = $db->query($sql);
+		$hospital = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		return $response->withStatus(200)->withHeader('Content-Type', 'application/json')->write(json_encode($hospital));
+
+	}catch(PDOException $e){
+		echo '{"error": {"text": '.$e->getMessage().' }';
+	}
+	
+});
+
 //Add Hospital
 $app->post('/api/v1/hospital', function (Request $request, Response $response){
 	$name = $request->getParam('name');
